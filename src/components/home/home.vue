@@ -2,12 +2,12 @@
   <div class="home-container flex flex-col justify-center">
     <img
       alt="DSC logo"
-      class="dsc-logo mr-0 ml-0 pl-4 pt-4 hidden md:block"
+      class="dsc-logo mx-0 pl-4 pt-4 hidden md:block"
       src="../../assets/dsclogo.png"
     />
     <img
       alt="DSC logo"
-      class="dsc-logo mr-auto ml-auto mt-4 md:pl-4 md:pt-4 md:hidden"
+      class="dsc-logo mx-auto mt-4 md:pl-4 md:pt-4 md:hidden"
       src="../../assets/dsclogo-mobile.png"
     />
 
@@ -18,14 +18,14 @@
       </div>
 
       <div class="flex justify-center flex-wrap mt-4 md:mt-12 pr-8 pl-8">
-        <label for="email-input" class="pt-2 pb-2 hidden md:block">Email ID:</label>
+        <label for="email-input" class="py-2 hidden md:block">Email ID:</label>
         <input
           type="email"
           placeholder="john.doe@example.com"
           id="email-input"
           v-model="emailInput"
           v-bind:class="{border: inputError}"
-          class="rounded-md outline-none pl-3 pr-20 pb-3 pt-3 sm:pb-0 sm:pt-0 sm:ml-4 text-xs border-red-500"
+          class="rounded-md outline-none pl-3 pr-20 py-3 sm:py-0 sm:ml-4 text-xs border-red-500"
         />
 
         <span class="inline-flex rounded-md shadow-sm">
