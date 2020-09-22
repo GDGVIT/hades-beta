@@ -30,17 +30,17 @@
         >Register for beta access!</button>
       </div>
     </div>
-    <div class="flex justify-between mt-auto pl-4 pr-4 pb-5 md:pl-8 md:pr-8 md:pb-6">
-      <a class="ml-2 mr-2" href="https://www.facebook.com/dscvitvellore/">
+    <div class="flex justify-center w-50 mt-auto pl-4 pr-4 pb-5 md:pl-8 md:pr-8 md:pb-6">
+      <a class="mx-4 md:mx-16" href="https://www.facebook.com/dscvitvellore/">
         <img class="h-auto w-8" src="../../assets/facebook.svg" />
       </a>
-      <a class="ml-2 mr-2" href="https://www.instagram.com/dscvitvellore/">
+      <a class="mx-4 md:mx-16" href="https://www.instagram.com/dscvitvellore/">
         <img class="h-auto w-8" src="../../assets/instagram.svg" />
       </a>
-      <a class="ml-2 mr-2" href="https://twitter.com/dscvit">
+      <a class="mx-4 md:mx-16" href="https://twitter.com/dscvit">
         <img class="h-auto w-8" src="../../assets/twitter.svg" />
       </a>
-      <a class="ml-2 mr-2" href="https://www.linkedin.com/company/dscvit/">
+      <a class="mx-4 md:mx-16" href="https://www.linkedin.com/company/dscvit/">
         <img class="h-auto w-8" src="../../assets/linkedin.svg" />
       </a>
     </div>
