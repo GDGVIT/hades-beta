@@ -20,14 +20,43 @@
       <div class="flex justify-center flex-wrap mt-4 md:mt-12 pr-8 pl-8">
         <label for="email-input" class="pt-2 pb-2 hidden md:block">Email ID:</label>
         <input
-          type="text"
+          type="email"
           placeholder="john.doe@example.com"
           id="email-input"
-          class="rounded-md pl-3 pr-20 pb-3 pt-3 md:pb-0 md:pt-0 md:ml-4 text-xs"
+          v-model="emailInput"
+          v-bind:class="{border: inputError}"
+          class="rounded-md outline-none pl-3 pr-20 pb-3 pt-3 sm:pb-0 sm:pt-0 sm:ml-4 text-xs border-red-500"
         />
-        <button
-          class="submit-btn text-white text-sm pl-8 pr-8 pt-2 pb-2 mt-4 md:mt-0 sm:ml-8 mb-auto rounded-md"
-        >Register for beta access!</button>
+
+        <span class="inline-flex rounded-md shadow-sm">
+          <button
+            class="inline-flex items-center submit-btn outline-none text-white text-sm px-4 py-2 mt-4 sm:mt-0 sm:ml-8 rounded-md"
+            v-on:click="handleSubmit"
+          >
+            <svg
+              class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              v-if="isLoading"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              />
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              />
+            </svg>
+            Register for beta access!
+          </button>
+        </span>
       </div>
     </div>
     <div class="flex justify-center w-50 mt-auto pl-4 pr-4 pb-5 md:pl-8 md:pr-8 md:pb-6">
@@ -44,12 +73,76 @@
         <img class="h-auto w-8" src="../../assets/linkedin.svg" />
       </a>
     </div>
+
+    <ErrorModal v-bind:show="showErrorModal" :text="modalText" @close="handleModalClosed" />
+    <SuccessModal v-bind:show="showSuccessModal" :text="modalText" @close="handleModalClosed" />
   </div>
 </template>
 
 <script>
+import ErrorModal from "../modal/error-modal.vue";
+import SuccessModal from "../modal/success-modal.vue";
+import axios from "axios";
+
+const isValidEmail = (mail) =>
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+    mail
+  );
+
 export default {
   name: "Home",
+  components: {
+    ErrorModal,
+    SuccessModal,
+  },
+  data: function () {
+    return {
+      showErrorModal: false,
+      showSuccessModal: false,
+      modalText: "",
+      emailInput: "",
+      inputError: false,
+      isLoading: false,
+    };
+  },
+  methods: {
+    async handleSubmit() {
+      if (isValidEmail(this.emailInput)) {
+        this.inputError = false;
+        try {
+          this.isLoading = true;
+          const response = await axios.post(
+            "https://hades-beta-backend.herokuapp.com/email",
+            { email: this.emailInput }
+          );
+          if (response.status === 201) {
+            this.showSuccessModal = true;
+            this.modalText = "Thank you for registering for the beta of Project Hades! We'll send you a mail when the beta is up and running."
+            this.emailInput = ""
+          }
+        } catch (err) {
+          console.log(err);
+          this.inputError = true;
+          this.showErrorModal = true;
+          if (err.response.status === 409) {
+            this.modalText = "This account is already registered. Try again with a different account.";
+          } else {
+            this.modalText = err.response.data.msg;
+          }
+        }
+        this.isLoading = false
+      } else {
+        this.inputError = true;
+        return;
+      }
+    },
+
+    handleModalClosed() {
+      this.showErrorModal = false;
+      this.showSuccessModal = false;
+      this.modalText = "";
+    },
+  },
 };
 </script>
 

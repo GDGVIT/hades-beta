@@ -9,6 +9,7 @@
 .vertical-center {
   margin: 0;
   position: absolute;
+  width: 100%;
   top: 45%;
   left: 50%;
   -ms-transform: translate(-50%, -45%);
@@ -26,6 +27,11 @@
 
 .submit-btn {
   background-color: #2685FB;
+  outline: none;
+}
+
+.submit-btn:focus {
+  outline: none;
 }
 
 a {
@@ -33,5 +39,18 @@ a {
   text-decoration: none;
 }
 
-a:hover {
+.loader {
+  border-top-color: green;
+  -webkit-animation: spinner 1.5s linear infinite;
+  animation: spinner 1.5s linear infinite;
+}
+
+@-webkit-keyframes spinner {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
